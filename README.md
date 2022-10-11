@@ -16,7 +16,7 @@ I used [Openweathermap](https://openweathermap.org/api) for the weather data
 
 ### Dependencies
 <p align="left">
-<img weather3 src="https://user-images.githubusercontent.com/55716560/195185522-cb17fc37-99c9-4ae3-804c-b388e27b7f07.png" width="800" height="600">
+<img weather3 src="https://user-images.githubusercontent.com/55716560/195185522-cb17fc37-99c9-4ae3-804c-b388e27b7f07.png" width="600" height="400">
 </p>
 
 
