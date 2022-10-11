@@ -4,11 +4,11 @@ App concept created with [Flutter](https://flutter.dev/) using Dart programming 
 
 ## About
 
-An application weather that provides the current weather and five days forecast, although you can add a favorite city to shows it's weather directly, and you can add other locations as well.
+An application weather that provides the current weather and five days forecast, although you can add a favorite city to shows it's weather directly in Home screen , and soon i will add feature to add other locations as well.
 
 ### Design pattern
 
-The whole code is witten in clean architecture that depends on Uncle Bob principals, Although the application depends on BLoC statemanagment to link the data and bussness logic with the UI layers.
+The application depends on BLoC Design pattern & state managment to link the data and bussness logic with the UI layers.
 
 ### API
 
@@ -22,7 +22,9 @@ I used [Openweathermap](https://openweathermap.org/api) for the weather data
 
 ### Video Record
 
-Uploading video_2022-10-11_21-04-09.mp4…
+https://user-images.githubusercontent.com/55716560/195186701-c5a63160-b862-4ba7-9104-7a686ad04e26.mp4
+
+
 
 
 
@@ -30,9 +32,9 @@ Uploading video_2022-10-11_21-04-09.mp4…
 ### Screenshots
 
 <p float="center">
- ![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٠٢-٠٧٦_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186033-5fb32809-d011-4f15-9c87-ba61f239acf3.jpg)
-![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٢٢-٠٦٧_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186055-5afc93ed-ab03-4f1a-97f3-3a8ad5fbb8e1.jpg)
-![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٠٩-٤٩٣_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186071-24dbea45-f4e2-438e-9720-f36b788cb995.jpg)
+ <img Screenshot (98) src="https://user-images.githubusercontent.com/55716560/195186033-5fb32809-d011-4f15-9c87-ba61f239acf3.jpg" width="200" height="400"/>
+ <img Screenshot (99) src="https://user-images.githubusercontent.com/55716560/195186055-5afc93ed-ab03-4f1a-97f3-3a8ad5fbb8e1.jpg" width="200" height="400"/>
+ <img Screenshot (100) src="https://user-images.githubusercontent.com/55716560/195186071-24dbea45-f4e2-438e-9720-f36b788cb995.jpg" width="200" height="400"/>
 
 </p>
 
