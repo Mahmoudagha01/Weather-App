@@ -22,12 +22,18 @@ I used [Openweathermap](https://openweathermap.org/api) for the weather data
 
 ### Video Record
 
-https://user-images.githubusercontent.com/80913778/190516905-15c9fd25-9435-4b91-a766-2c5c5f1978b9.mp4
+Uploading video_2022-10-11_21-04-09.mp4…
+
+
+
 
 ### Screenshots
 
 <p float="center">
- 
+ ![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٠٢-٠٧٦_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186033-5fb32809-d011-4f15-9c87-ba61f239acf3.jpg)
+![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٢٢-٠٦٧_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186055-5afc93ed-ab03-4f1a-97f3-3a8ad5fbb8e1.jpg)
+![Screenshot_٢٠٢٢-١٠-١١-٢٠-٥٢-٠٩-٤٩٣_com example weatherapp](https://user-images.githubusercontent.com/55716560/195186071-24dbea45-f4e2-438e-9720-f36b788cb995.jpg)
+
 </p>
 
 <p float="left">
