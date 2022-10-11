@@ -1,37 +1,33 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:weatherapp/data/models/weather.dart';
 
-// import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../data/models/Listelement.dart';
 
-// import '../../data/models/five_days_data.dart';
+class MyChart extends StatelessWidget {
+  final Weather weather;
 
-
-
-
-// class MyChart {
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 240,
-//       child: Card(
-//         elevation: 5,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(15),
-//         ),
-//         child: SfCartesianChart(
-//           primaryXAxis: CategoryAxis(),
-//           series: <ChartSeries<FiveDayData, String>>[
-//             SplineSeries<FiveDayData, String>(
-//              dataSource: ,
-//               xValueMapper: (FiveDayData f, _) =>
-//               f.dateTime,
-//               yValueMapper: (FiveDayData f, _) =>
-//               f.temp,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  const MyChart({super.key, required this.weather});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+  
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width,
+     height: MediaQuery.of(context).size.height * 0.25,
+      child: SfCartesianChart(
+        primaryXAxis: CategoryAxis(arrangeByIndex: true),
+        series: <ChartSeries<ListElement, String>>[
+          SplineSeries<ListElement, String>(
+            dataSource: weather.list,
+            color: Colors.red,
+            xValueMapper: (ListElement f, _) =>
+                DateFormat.yMd().format(f.dtTxt).toString(),
+            yValueMapper: (ListElement f, _) => f.main.temp - 273.15,
+          ),
+        ],
+      ),
+    );
+  }
+}

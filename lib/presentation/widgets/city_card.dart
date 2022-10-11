@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-
-import 'package:weatherapp/data/models/city_weather.dart';
-
+import '../../data/models/weather.dart';
 class CityCard extends StatelessWidget {
   CityCard({
     Key? key,
@@ -28,7 +25,7 @@ class CityCard extends StatelessWidget {
         ),
         child: Stack(children: [
           Hero(
-              tag: "${weather.id}-background",
+              tag: "${weather.city.id}-background",
               child: Container(
                   width: size.width * 0.85,
                   decoration: BoxDecoration(
@@ -55,7 +52,7 @@ class CityCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Hero(
-                        tag: "${weather.id}-icon",
+                        tag: "${weather.city.id}-icon",
                         child: const Icon(Icons.bubble_chart_rounded,color: Colors.blue,),
                       ),
                       const Icon(Icons.pinch_sharp,color: Colors.blue,)
@@ -63,68 +60,72 @@ class CityCard extends StatelessWidget {
                   ),
 
                   Hero(
-                    tag: "${weather.id}-name",
+                    tag: "${weather.city.id}-name",
                     child: Text(
-                      weather.destination,
+                      weather.city.name,
                       style: Theme.of(context)
                           .textTheme
                           .headline3!
                           .copyWith(color: Colors.grey[700]),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "${(weather.temp! - 273.15).round()}°",
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.arrow_upward,color: Colors.green,),
-                          Text(
-                            "${(weather.tempMax! - 273.15).round()}°",
-                            style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.green),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.arrow_downward,color: Colors.red,),
-                          Text(
-                            "${(weather.tempMin! - 273.15).round()}°",
-                            style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.red),
-                          ),
-                        ],
-                      ),
-                    ],
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        Text(
+                          "${(weather.list[0].main.temp - 273.15).round()}°",
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.arrow_upward,color: Colors.green,),
+                            Text(
+                              "${(weather.list[0].main.tempMax - 273.15).round()}°",
+                              style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.green),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.arrow_downward,color: Colors.red,),
+                            Text(
+                              "${(weather.list[0].main.tempMin - 273.15).round()}°",
+                              style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.red),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 5),
-                        child: Hero(
-                          tag: "${weather.id}-count",
-                          child: Text(
-                            weather.weatherStateMain,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(color: Colors.grey[700]),
+                  FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 5),
+                          child: Hero(
+                            tag: "${weather.city.id}-count",
+                            child: Text(
+                              weather.list[0].weather[0].main,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(color: Colors.grey[700]),
+                            ),
                           ),
                         ),
-                      ),
-                      Hero(
-                          tag: "${weather.id}-task",
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/images/loading.gif',
-                            
-                            image:
-                                'http://openweathermap.org/img/wn/${weather.weatherStateIcon}@2x.png',
-                            height: 100,
-                            width: 100,
-                          )),
-                    ],
+                        Hero(
+                            tag: "${weather.city.id}",
+                            child: FadeInImage.assetNetwork(
+                              placeholder: 'assets/images/loading.gif',
+                              
+                              image:
+                                  'http://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}@2x.png',
+                              height: 100,
+                              width: 100,
+                            )),
+                      ],
+                    ),
                   ),
                   
                 ],

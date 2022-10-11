@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 
 const String kHostApi = 'api.openweathermap.org';
-const String kHostApi2 = 'www.breakingbadapi.com';
-
 const String kApiKey = 'dbaa19ed54b9ecb2b53a1f199b590f1c';
+
 List backColor = [
   [
     const Color(0xFF00416a),

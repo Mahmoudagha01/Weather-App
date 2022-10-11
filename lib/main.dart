@@ -4,12 +4,11 @@ import 'package:weatherapp/business_logic/weather_cubit.dart';
 import 'package:weatherapp/data/API/weather_API.dart';
 import 'package:weatherapp/data/repository/cityweather_repository.dart';
 import 'package:weatherapp/utilities/routes.dart';
-
 import 'utilities/router.dart';
 
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

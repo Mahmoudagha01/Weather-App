@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weatherapp/business_logic/weather_cubit.dart';
-import 'package:weatherapp/data/models/city_weather.dart';
-import 'package:weatherapp/data/models/forecast_weather.dart';
+import 'package:weatherapp/data/models/weather.dart';
+import 'package:weatherapp/presentation/widgets/header.dart';
 import '../../business_logic/weather_state.dart';
+import '../../data/models/Listelement.dart';
+import '../widgets/chart.dart';
 
 class Details extends StatefulWidget {
   const Details({super.key, required this.weather});
@@ -15,21 +17,13 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  // @override
-  // void initState() {
-  // //  _fetchInitial();
-  //   super.initState();
-  // }
 
-//  Future<void> _fetchInitial() async {
-//     await context.read<CityWeatherCubit>().getFiveDaysWeather(city: "Cairo");
-//   }
-
-  ForecastWeather? dayWeather;
+  Weather? dayWeather;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 161, 161, 161),
+      backgroundColor: Color.fromARGB(255, 113, 80, 80),
+      // const Color.fromARGB(255, 161, 161, 161),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -46,183 +40,116 @@ class _DetailsState extends State<Details> {
       ),
       body: BlocBuilder<CityWeatherCubit, CityWeatherState>(
           builder: (context, state) {
-        List dayslist = BlocProvider.of<CityWeatherCubit>(context).daysList;
         if (state is CityWeatherloading) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Image.asset("assets/images/loading.gif"),
           );
-        } else if (state is CityWeatherloaded) {
-          dayWeather = BlocProvider.of<CityWeatherCubit>(context).dayWeather;
+        } else if (state is CityWeatherSuccess) {
+          dayWeather = BlocProvider.of<CityWeatherCubit>(context).cityWeather;
+          final List<ListElement> days = [];
+          final apiList = dayWeather!.list;
+
+          // Filter Api response list to only five days list.
+          days.add(apiList.first);
+          for (var i in apiList) {
+            if (days.last.dtTxt.day != i.dtTxt.day) {
+              days.add(i);
+            }
+          }
+
           return Column(children: [
-            Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF403b4a),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(100),
-                        topRight: Radius.circular(100),
+            Header(weather: widget.weather),
+            MyChart(weather: widget.weather),
+            Expanded(
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: ListView.builder(
+                  itemCount: days.length,
+                  itemBuilder: (context, index) => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        days[index].dtTxt.weekday == DateTime.now().weekday
+                            ? "Today"
+                            : (DateFormat.EEEE().format(days[index].dtTxt)),
+                        style: Theme.of(context)
+                            .copyWith()
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: Colors.white),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 30),
-                      child: Column(
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          '${days[index].weather[0].main}',
+                          style: Theme.of(context)
+                              .copyWith()
+                              .textTheme
+                              .headline5!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/loading.gif',
+                          image:
+                              'http://openweathermap.org/img/wn/${widget.weather.list[index].weather[0].icon}@2x.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Row(
                         children: [
-                          Row(children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      widget.weather.destination.toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    widget.weather.weatherStateDescription,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              "${(widget.weather.temp! - 273.15).round()}°",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                          ]),
-                          const SizedBox(
-                            height: 5,
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.arrow_upward,
+                                color: Colors.green,
+                              ),
+                              Text(
+                                "${(days[0].main.tempMax - 273.15).round()}°",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(color: Colors.green),
+                              ),
+                            ],
                           ),
-                          const Divider(
-                            color: Colors.white30,
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.arrow_downward,
+                                color: Colors.red,
+                              ),
+                              Text(
+                                "${(days[0].main.tempMin - 273.15).round()}°",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: Colors.red),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            child: Row(
-                              children: [
-                                const CircleAvatar(
-                                    backgroundColor: Colors.grey,
-                                    foregroundColor: Colors.white,
-                                    child: Icon(Icons.air)),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Wind",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${(widget.weather.speed)!.floor()} km/h",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                const CircleAvatar(
-                                    backgroundColor: Colors.grey,
-                                    foregroundColor: Colors.white,
-                                    child: Icon(Icons.water_drop)),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Humidity",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.weather.humidity}%",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/images/loading.gif',
-                      image:
-                          'http://openweathermap.org/img/wn/${widget.weather.weatherStateIcon}@2x.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-            Expanded(
-              child: Text("${dayslist}"),
-            )
           ]);
         } else if (state is CityWeatherError) {
           return Center(
+            //Todo: handle error msg
             child: Text("fail"),
           );
         } else {
           return Center(
-            child: Text("p"),
+            child: Text("none"),
           );
         }
       }),
