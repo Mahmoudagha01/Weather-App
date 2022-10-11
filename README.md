@@ -1,6 +1,6 @@
 # Weather Application
 
-App concept created with [Flutter](https://flutter.dev/) using Dart programming language ad it's a demanded task in my internship at [Algoriza](https://algoriza.com/?fbclid=IwAR2zSo9Bh3oEs4COrz4p6rcDJsN75cydCJKD4HloAVlW1uTz2li-GgUGN-o)
+App concept created with [Flutter](https://flutter.dev/) using Dart programming language ad it's considered as an introduction to understanding clean code and bloc architecture
 
 ## About
 
