@@ -33,9 +33,7 @@ https://user-images.githubusercontent.com/55716560/195186701-c5a63160-b862-4ba7-
 
 <p float="center">
  <img Screenshot (98) src="https://user-images.githubusercontent.com/55716560/195186033-5fb32809-d011-4f15-9c87-ba61f239acf3.jpg" width="200" height="400"/>
-
  <img Screenshot (100) src="https://user-images.githubusercontent.com/55716560/195186071-24dbea45-f4e2-438e-9720-f36b788cb995.jpg" width="200" height="400"/>
-
  <img Screenshot (99) src="https://user-images.githubusercontent.com/55716560/195186055-5afc93ed-ab03-4f1a-97f3-3a8ad5fbb8e1.jpg" width="200" height="400"/>
 </p>
 
