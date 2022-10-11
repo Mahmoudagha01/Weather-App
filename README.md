@@ -1,6 +1,6 @@
 # Weather Application
 
-App concept created with [Flutter](https://flutter.dev/) using Dart programming language ad it's considered as an introduction to understanding clean code and bloc architecture
+App concept created with [Flutter](https://flutter.dev/) using Dart programming language it's considered as an introduction to understanding clean code and bloc architecture
 
 ## About
 
